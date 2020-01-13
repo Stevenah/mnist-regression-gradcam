@@ -17,7 +17,6 @@ parser.add_argument("-m", "--model-paths", nargs='+')
 parser.add_argument("-n", "--number-of-samples", type=int)
 parser.add_argument("-o", "--output-path", type=str)
 
-
 def visualize(model, image, output_path, image_name, class_index=0):
     return GradCAM().explain(
         validation_data=(image, None),
