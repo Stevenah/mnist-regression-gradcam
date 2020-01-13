@@ -4,14 +4,13 @@ import glob
 import argparse
 
 from PIL import Image
-
-from tensorflow import keras    
+from utils import load_mnist
+from tensorflow import keras
 from tf_explain.core import GradCAM
 
-import tensorflow as tf
 import numpy as np
 
-parser = argparse.ArgumentParser(description="")
+parser = argparse.ArgumentParser(description="Visualize the internals of an MNIST classification model.")
 
 parser.add_argument("-m", "--model-paths", nargs='+')
 parser.add_argument("-n", "--number-of-samples", type=int)
@@ -34,15 +33,7 @@ def save_image(image, path):
 
 def extract_samples(number_of_samples, output_path):
 
-    mnist = tf.keras.datasets.mnist
-
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
-
-    x_train = x_train[..., tf.newaxis]
-    x_test = x_test[..., tf.newaxis]
-
-    x_train = x_train.reshape(x_train.shape[0], 28, 28)
-    x_test = x_test.reshape(x_test.shape[0], 28, 28)
+    x_train, y_train, x_test, y_test = load_mnist()
 
     for class_name in range(0, 10):
         for index, image in enumerate(x_train[np.where(y_train==class_name)][:number_of_samples]):

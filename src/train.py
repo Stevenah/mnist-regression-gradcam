@@ -1,12 +1,10 @@
 import os
 import argparse
 
-import tensorflow as tf
-
+from utils import load_mnist
 from tensorflow import keras
 
-
-parser = argparse.ArgumentParser(description="")
+parser = argparse.ArgumentParser(description="Train an MNIST classification model using regression and standard classification.")
 
 parser.add_argument("-s", "--save-path", type=str)
 parser.add_argument("-o", "--output-size", type=int)
@@ -63,13 +61,7 @@ if __name__ == "__main__":
     if not os.path.exists(os.path.dirname(save_path)):
         os.makedirs(os.path.dirname(save_path))
 
-    (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-
-    x_train = x_train[..., tf.newaxis]
-    x_test = x_test[..., tf.newaxis]
-
-    x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)
-    x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
+    x_train, y_train, x_test, y_test = load_mnist()
 
     train_model(
         build_model((28, 28, 1), output_size, activation),

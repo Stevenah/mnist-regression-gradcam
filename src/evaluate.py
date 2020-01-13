@@ -3,12 +3,12 @@ import glob
 import argparse
 
 import numpy as np
-import tensorflow as tf
 
 from tensorflow import keras
 from sklearn import metrics
+from utils import load_mnist
 
-parser = argparse.ArgumentParser(description="")
+parser = argparse.ArgumentParser(description="Evaluate MNIST classfiication model.")
 
 parser.add_argument("-m", "--model-path", type=str)
 parser.add_argument("-o", "--output_path", type=str, default="./")
@@ -101,10 +101,7 @@ if __name__ == "__main__":
     model_path = args.model_path
     output_path = args.output_path
 
-    (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-
-    x_test = x_test[..., tf.newaxis]
-    x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
+    x_train, y_train, x_test, y_test = load_mnist()
 
     evaluate_model(
         model_path=model_path,
