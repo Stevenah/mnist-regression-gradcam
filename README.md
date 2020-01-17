@@ -1,1 +1,3 @@
-# mnist-regression-gradcam
+# Comparing Visualizations using a Classification and Regression Approach
+
+This repository contains the code used to compare layer-wise classification visualizations using a classification and regression approach. The purpose of this experiment is to see if state-of-the-art explainability methods work as well for regression tasks as they do for regression. As an initial study, we use the MNIST dataset to train a classifier, for which we compare the two approaches.
